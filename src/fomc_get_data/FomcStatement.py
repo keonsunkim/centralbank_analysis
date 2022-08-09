@@ -51,10 +51,10 @@ class FomcStatement(FomcBase):
 
         if self.verbose: print("{} links found in the current page.".format(len(self.links)))
 
-        # Archived before 2015
-        if from_year <= 2014:
+        # Archived before 2017
+        if from_year <= 2016:
             print("Getting links from archive pages...")
-            for year in range(from_year, 2015):
+            for year in range(from_year, 2017):
                 yearly_contents = []
                 fomc_yearly_url = self.base_url + '/monetarypolicy/fomchistorical' + str(year) + '.htm'
                 r_year = requests.get(fomc_yearly_url)

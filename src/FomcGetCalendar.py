@@ -119,11 +119,11 @@ if __name__ == '__main__':
             date_list.append({"date": meeting_date, "unscheduled": is_unscheduled, "forecast": is_forecast, "confcall": False})
 
     # Retrieve FOMC Meeting date older than 2015
-    for year in range(from_year, 2015):
+    for year in range(from_year, 2017):
         hist_url = base_url + '/monetarypolicy/fomchistorical' + str(year) + '.htm'
         r = requests.get(hist_url)
         soup = BeautifulSoup(r.text, 'html.parser')
-        if year in (2011, 2012, 2013, 2014):
+        if year in (2011, 2012, 2013, 2014, 2015, 2016):
             panel_headings = soup.find_all('h5', {"class": "panel-heading"})
         else:
             panel_headings = soup.find_all('div', {"class": "panel-heading"})

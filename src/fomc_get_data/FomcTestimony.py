@@ -19,7 +19,7 @@ class FomcTestimony(FomcBase):
     '''
     A convenient class for extracting testimony from the FOMC website.
     Among testimonies, there are semi annual monetary policy report to the Congress by chairperson.
-    Example Usage:  
+    Example Usage:
         fomc = FomcTestimony()
         df = fomc.get_contents()
     '''
@@ -47,7 +47,7 @@ class FomcTestimony(FomcBase):
 
         url = self.base_url + '/json/ne-testimony.json'
         res = requests.get(url)
-        res_list = json.loads(res.text)
+        res_list = json.loads(res.text, encoding='utf-8-sig')
         for record in res_list:
             doc_link = record.get('l')
             if doc_link:
@@ -92,13 +92,13 @@ class FomcTestimony(FomcBase):
                     self.titles.append(doc_link.get_text())
                     self.speakers.append(speaker)
                     self.dates.append(datetime.strptime(date_str, '%B %d, %Y'))
-                    
+
                 if self.verbose: print("YEAR: {} - {} testimony docs found.".format(year, len(doc_links)))
 
     def _add_article(self, link, index=None):
         '''
         Override a private function that adds a related article for 1 link into the instance variable
-        The index is the index in the article to add to. 
+        The index is the index in the article to add to.
         Due to concurrent prcessing, we need to make sure the articles are stored in the right order
         '''
         if self.verbose:
